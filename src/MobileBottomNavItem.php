@@ -27,11 +27,20 @@ class MobileBottomNavItem
 
     protected bool | Closure $isVisible = true;
 
+    protected string | Closure | null $labelOverride = null;
+
     final public function __construct(protected string $label) {}
 
     public static function make(string $label): static
     {
         return new static($label);
+    }
+
+    public function label(string | Closure $label): static
+    {
+        $this->labelOverride = $label;
+
+        return $this;
     }
 
     public function icon(string | BackedEnum | Htmlable $icon): static
@@ -96,6 +105,14 @@ class MobileBottomNavItem
 
     public function getLabel(): string
     {
+        if ($this->labelOverride instanceof Closure) {
+            return ($this->labelOverride)();
+        }
+
+        if ($this->labelOverride !== null) {
+            return $this->labelOverride;
+        }
+
         return $this->label;
     }
 
