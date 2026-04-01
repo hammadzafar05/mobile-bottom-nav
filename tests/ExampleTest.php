@@ -36,21 +36,21 @@ it('supports fluent builder pattern', function () {
 
 it('evaluates closure for url', function () {
     $item = MobileBottomNavItem::make('Dashboard')
-        ->url(fn () => '/dynamic-url');
+        ->url(fn() => '/dynamic-url');
 
     expect($item->getUrl())->toBe('/dynamic-url');
 });
 
 it('evaluates closure for isActive', function () {
     $item = MobileBottomNavItem::make('Dashboard')
-        ->isActive(fn () => true);
+        ->isActive(fn() => true);
 
     expect($item->isActiveState())->toBeTrue();
 });
 
 it('evaluates closure for visibility', function () {
     $item = MobileBottomNavItem::make('Dashboard')
-        ->visible(fn () => false);
+        ->visible(fn() => false);
 
     expect($item->isVisible())->toBeFalse();
 });
@@ -83,10 +83,27 @@ it('supports string badge', function () {
         ->and($item->getBadgeColor())->toBeNull();
 });
 
+it('evaluates closures for badge and badge color via badge()', function () {
+    $item = MobileBottomNavItem::make('Inbox')
+        ->badge(fn() => 12, fn() => 'success');
+
+    expect($item->getBadge())->toBe(12)
+        ->and($item->getBadgeColor())->toBe('success');
+});
+
 it('supports setting badge color separately', function () {
     $item = MobileBottomNavItem::make('Updates')
         ->badge(3)
         ->badgeColor('warning');
+
+    expect($item->getBadge())->toBe(3)
+        ->and($item->getBadgeColor())->toBe('warning');
+});
+
+it('evaluates closure for badgeColor()', function () {
+    $item = MobileBottomNavItem::make('Updates')
+        ->badge(3)
+        ->badgeColor(fn() => 'warning');
 
     expect($item->getBadge())->toBe(3)
         ->and($item->getBadgeColor())->toBe('warning');
