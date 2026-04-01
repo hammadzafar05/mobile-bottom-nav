@@ -16,12 +16,12 @@ class MobileBottomNavItem
 
     protected bool | Closure $isActive = false;
 
-    protected string | int | null $badge = null;
+    protected string | int | null | Closure $badge = null;
 
     /**
-     * @var string | array<string> | null
+     * @var string | array<string> | null | Closure
      */
-    protected string | array | null $badgeColor = null;
+    protected string | array | null | Closure $badgeColor = null;
 
     protected int $sort = 0;
 
@@ -72,9 +72,9 @@ class MobileBottomNavItem
     }
 
     /**
-     * @param  string | array<string> | null  $color
+     * @param  string | array<string> | null | Closure  $color
      */
-    public function badge(string | int | null $badge, string | array | null $color = null): static
+    public function badge(string | int | null | Closure $badge, string | array | null | Closure $color = null): static
     {
         $this->badge = $badge;
         $this->badgeColor = $color;
@@ -82,7 +82,7 @@ class MobileBottomNavItem
         return $this;
     }
 
-    public function badgeColor(string | array | null $color): static
+    public function badgeColor(string | array | null | Closure $color): static
     {
         $this->badgeColor = $color;
 
@@ -146,6 +146,9 @@ class MobileBottomNavItem
 
     public function getBadge(): string | int | null
     {
+        if ($this->badge instanceof Closure) {
+            return ($this->badge)();
+        }
         return $this->badge;
     }
 
@@ -154,6 +157,10 @@ class MobileBottomNavItem
      */
     public function getBadgeColor(): string | array | null
     {
+        if ($this->badgeColor instanceof Closure) {
+            return ($this->badgeColor)();
+        }
+
         return $this->badgeColor;
     }
 
