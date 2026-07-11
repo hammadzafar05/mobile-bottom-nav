@@ -172,8 +172,6 @@ class MobileBottomNav implements Plugin
             }
         }
 
-        usort($allItems, fn (MobileBottomNavItem $a, MobileBottomNavItem $b): int => $a->getSort() <=> $b->getSort());
-
         $limit = $this->moreButtonEnabled
             ? $this->navigationLimit - 1
             : $this->navigationLimit;

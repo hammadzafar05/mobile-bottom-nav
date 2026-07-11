@@ -1,5 +1,7 @@
 <?php
 
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
 use Hammadzafar05\MobileBottomNav\MobileBottomNav;
 use Hammadzafar05\MobileBottomNav\MobileBottomNavItem;
 
@@ -219,6 +221,38 @@ it('resolveItems filters invisible items', function () {
     expect($resolved)->toHaveCount(2)
         ->and($resolved[0]->getLabel())->toBe('Home')
         ->and($resolved[1]->getLabel())->toBe('Settings');
+});
+
+it('extractFromNavigation preserves natural group/item order instead of globally re-sorting', function () {
+    // Group A first, ascending sort within group; Group B second, ascending sort within group.
+    // Group B's items intentionally use LOWER raw sort values than Group A's — this is what the
+    // old usort() got wrong, since it compared sort values across unrelated groups.
+    $groupA = NavigationGroup::make('Group A')->items([
+        NavigationItem::make('Dashboard')->icon('heroicon-o-home')->sort(10),
+        NavigationItem::make('Reports')->icon('heroicon-o-chart-bar')->sort(20),
+    ]);
+
+    $groupB = NavigationGroup::make('Group B')->items([
+        NavigationItem::make('Users')->icon('heroicon-o-users')->sort(1),
+        NavigationItem::make('Settings')->icon('heroicon-o-cog')->sort(2),
+    ]);
+
+    $fakeManager = Mockery::mock(\Filament\FilamentManager::class);
+    $fakeManager->shouldReceive('getNavigation')->andReturn([$groupA, $groupB]);
+    app()->instance('filament', $fakeManager);
+
+    $plugin = MobileBottomNav::make()->fromNavigation(4)->moreButton(false);
+
+    $reflection = new ReflectionClass($plugin);
+    $method = $reflection->getMethod('resolveItems');
+
+    $resolved = $method->invoke($plugin);
+
+    expect($resolved)->toHaveCount(4)
+        ->and($resolved[0]->getLabel())->toBe('Dashboard')
+        ->and($resolved[1]->getLabel())->toBe('Reports')
+        ->and($resolved[2]->getLabel())->toBe('Users')
+        ->and($resolved[3]->getLabel())->toBe('Settings');
 });
 
 it('resolveItems returns all visible items when using manual items', function () {
