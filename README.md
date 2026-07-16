@@ -1,7 +1,7 @@
 # Mobile Bottom Navigation for Filament
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/hammadzafar05/mobile-bottom-nav.svg?style=flat-square)](https://packagist.org/packages/hammadzafar05/mobile-bottom-nav)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/hammadzafar05/mobile-bottom-nav/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/hammadzafar05/mobile-bottom-nav/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/hammadzafar05/mobile-bottom-nav/run-tests.yml?label=tests&style=flat-square)](https://github.com/hammadzafar05/mobile-bottom-nav/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/hammadzafar05/mobile-bottom-nav.svg?style=flat-square)](https://packagist.org/packages/hammadzafar05/mobile-bottom-nav)
 
 A thumb-friendly mobile bottom navigation bar for Filament panels. Automatically extracts items from your Filament navigation and renders a fixed bottom bar on mobile viewports — with full support for dark mode, safe-area insets, badges, and sidebar integration.
