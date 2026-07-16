@@ -2,6 +2,10 @@
 
 All notable changes to `mobile-bottom-nav` will be documented in this file.
 
+## v1.3.1 - 2026-07-16
+
+**Full Changelog**: https://github.com/hammadzafar05/mobile-bottom-nav/compare/v1.3...v1.3.1
+
 ## 1.3.0 - 2026-07-11
 
 - Fixed: auto-discovery mode (`extractFromNavigation()`, used when `->items()` is not called)
