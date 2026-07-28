@@ -255,6 +255,84 @@ it('extractFromNavigation preserves natural group/item order instead of globally
         ->and($resolved[3]->getLabel())->toBe('Settings');
 });
 
+// --- render() Output Tests ---
+
+/**
+ * @param  array<NavigationGroup>  $groups
+ */
+function fakeAuthedPanel(array $groups, bool $isAuthed = true): void
+{
+    $guard = Mockery::mock(\Illuminate\Contracts\Auth\Guard::class);
+    $guard->shouldReceive('check')->andReturn($isAuthed);
+
+    $manager = Mockery::mock(\Filament\FilamentManager::class);
+    $manager->shouldReceive('auth')->andReturn($guard);
+    $manager->shouldReceive('hasTenancy')->andReturn(false);
+    $manager->shouldReceive('getNavigation')->andReturn($groups);
+
+    app()->instance('filament', $manager);
+}
+
+function navGroupWithIcons(): NavigationGroup
+{
+    return NavigationGroup::make('Main')->items([
+        NavigationItem::make('Dashboard')->icon('heroicon-o-home'),
+        NavigationItem::make('Users')->icon('heroicon-o-users'),
+    ]);
+}
+
+function renderPlugin(MobileBottomNav $plugin): string
+{
+    return (new ReflectionClass($plugin))->getMethod('render')->invoke($plugin);
+}
+
+it('hides the sidebar toggle when the bar renders and the More button is enabled', function () {
+    fakeAuthedPanel([navGroupWithIcons()]);
+
+    $html = renderPlugin(MobileBottomNav::make());
+
+    expect($html)->toContain('.fi-topbar-open-sidebar-btn')
+        ->and($html)->toContain('.fi-layout-sidebar-toggle-btn-ctn');
+});
+
+it('leaves the sidebar toggle alone when the More button is disabled', function () {
+    fakeAuthedPanel([navGroupWithIcons()]);
+
+    $html = renderPlugin(MobileBottomNav::make()->moreButton(false));
+
+    // The bar itself still renders — only the toggle-hiding CSS is withheld.
+    expect($html)->toContain('fi-bottom-nav')
+        ->and($html)->not->toContain('.fi-topbar-open-sidebar-btn')
+        ->and($html)->not->toContain('.fi-layout-sidebar-toggle-btn-ctn');
+});
+
+it('leaves the sidebar toggle alone when opted out', function () {
+    fakeAuthedPanel([navGroupWithIcons()]);
+
+    $html = renderPlugin(MobileBottomNav::make()->hideSidebarToggle(false));
+
+    expect($html)->toContain('fi-bottom-nav')
+        ->and($html)->not->toContain('.fi-topbar-open-sidebar-btn')
+        ->and($html)->not->toContain('.fi-layout-sidebar-toggle-btn-ctn');
+});
+
+it('emits nothing for a guest', function () {
+    fakeAuthedPanel([navGroupWithIcons()], isAuthed: false);
+
+    expect(renderPlugin(MobileBottomNav::make()))->toBe('');
+});
+
+it('emits nothing when no items resolve', function () {
+    // No icon anywhere, so extractFromNavigation() drops every item.
+    fakeAuthedPanel([
+        NavigationGroup::make('Main')->items([
+            NavigationItem::make('Dashboard'),
+        ]),
+    ]);
+
+    expect(renderPlugin(MobileBottomNav::make()))->toBe('');
+});
+
 it('resolveItems returns all visible items when using manual items', function () {
     $plugin = MobileBottomNav::make();
 

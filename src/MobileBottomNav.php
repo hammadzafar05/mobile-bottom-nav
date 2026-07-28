@@ -16,6 +16,8 @@ class MobileBottomNav implements Plugin
 
     protected bool $moreButtonEnabled = true;
 
+    protected bool $hidesSidebarToggle = true;
+
     protected string $moreButtonLabel = 'mobile-bottom-nav::mobile-bottom-nav.more';
 
     protected string $renderHook = PanelsRenderHook::BODY_END;
@@ -66,6 +68,13 @@ class MobileBottomNav implements Plugin
         return $this;
     }
 
+    public function hideSidebarToggle(bool $condition = true): static
+    {
+        $this->hidesSidebarToggle = $condition;
+
+        return $this;
+    }
+
     public function moreButtonLabel(string $label): static
     {
         $this->moreButtonLabel = $label;
@@ -110,6 +119,8 @@ class MobileBottomNav implements Plugin
             'items' => $items,
             'moreButtonEnabled' => $this->moreButtonEnabled,
             'moreButtonLabel' => __($this->moreButtonLabel),
+            // Only safe once we know the bar drew and the More button can open the sidebar.
+            'hidesSidebarToggle' => $this->hidesSidebarToggle && $this->moreButtonEnabled,
         ])->render();
     }
 

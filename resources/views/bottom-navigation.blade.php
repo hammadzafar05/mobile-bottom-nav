@@ -115,6 +115,15 @@
         .fi-main {
             padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px)) !important;
         }
+
+        @if ($hidesSidebarToggle)
+            /* The More button already opens the sidebar. !important because Alpine's
+               x-show writes an inline display on the topbar button. */
+            .fi-topbar-open-sidebar-btn,
+            .fi-layout-sidebar-toggle-btn-ctn {
+                display: none !important;
+            }
+        @endif
     }
 </style>
 

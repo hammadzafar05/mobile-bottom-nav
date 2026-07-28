@@ -63,6 +63,18 @@ MobileBottomNav::make()
     ->moreButton(false)
 ```
 
+### Sidebar Toggle
+
+While the bottom bar is on screen, its "More" button already opens the sidebar, so Filament's own topbar hamburger is redundant — the plugin hides it below `1024px` by default. It is only hidden when the bar actually rendered *and* the "More" button is enabled, so the sidebar always stays reachable.
+
+If you disable the "More" button, keep the hamburger:
+
+```php
+MobileBottomNav::make()
+    ->moreButton(false)
+    ->hideSidebarToggle(false)
+```
+
 ### Custom Items
 
 Provide your own items instead of extracting from the navigation registry:
@@ -107,6 +119,7 @@ MobileBottomNavItem::make('Admin')
 | `items(array $items)` | `null` | Provide custom `MobileBottomNavItem` instances (disables auto-extraction) |
 | `moreButton(bool $enabled)` | `true` | Show/hide the "More" button that opens the sidebar |
 | `moreButtonLabel(string $label)` | `'More'` (translatable) | Customize the "More" button label |
+| `hideSidebarToggle(bool $condition)` | `true` | Hide Filament's topbar sidebar toggle on mobile while the bottom bar is visible (only applied when the "More" button is enabled) |
 | `renderHook(string $hook)` | `PanelsRenderHook::BODY_END` | Change which Filament render hook is used |
 
 ### Publishing Views
