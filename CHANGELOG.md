@@ -2,6 +2,19 @@
 
 All notable changes to `mobile-bottom-nav` will be documented in this file.
 
+## v1.4.0 - 2026-07-28
+
+### What's Changed
+
+* Bump actions/checkout from 7.0.0 to 7.0.1 by @dependabot[bot] in https://github.com/hammadzafar05/mobile-bottom-nav/pull/7
+* Feat/hide sidebar toggle by @hammadzafar05 in https://github.com/hammadzafar05/mobile-bottom-nav/pull/8
+
+### New Contributors
+
+* @hammadzafar05 made their first contribution in https://github.com/hammadzafar05/mobile-bottom-nav/pull/8
+
+**Full Changelog**: https://github.com/hammadzafar05/mobile-bottom-nav/compare/v1.3.1...v1.4.0
+
 ## Unreleased
 
 - Added: `->hideSidebarToggle()` — hides Filament's redundant topbar hamburger while the bottom
