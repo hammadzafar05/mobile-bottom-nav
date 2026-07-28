@@ -1,9 +1,11 @@
 <?php
 
+use Filament\FilamentManager;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Hammadzafar05\MobileBottomNav\MobileBottomNav;
 use Hammadzafar05\MobileBottomNav\MobileBottomNavItem;
+use Illuminate\Contracts\Auth\Guard;
 
 // --- Arch Tests ---
 
@@ -38,21 +40,21 @@ it('supports fluent builder pattern', function () {
 
 it('evaluates closure for url', function () {
     $item = MobileBottomNavItem::make('Dashboard')
-        ->url(fn() => '/dynamic-url');
+        ->url(fn () => '/dynamic-url');
 
     expect($item->getUrl())->toBe('/dynamic-url');
 });
 
 it('evaluates closure for isActive', function () {
     $item = MobileBottomNavItem::make('Dashboard')
-        ->isActive(fn() => true);
+        ->isActive(fn () => true);
 
     expect($item->isActiveState())->toBeTrue();
 });
 
 it('evaluates closure for visibility', function () {
     $item = MobileBottomNavItem::make('Dashboard')
-        ->visible(fn() => false);
+        ->visible(fn () => false);
 
     expect($item->isVisible())->toBeFalse();
 });
@@ -87,7 +89,7 @@ it('supports string badge', function () {
 
 it('evaluates closures for badge and badge color via badge()', function () {
     $item = MobileBottomNavItem::make('Inbox')
-        ->badge(fn() => 12, fn() => 'success');
+        ->badge(fn () => 12, fn () => 'success');
 
     expect($item->getBadge())->toBe(12)
         ->and($item->getBadgeColor())->toBe('success');
@@ -105,7 +107,7 @@ it('supports setting badge color separately', function () {
 it('evaluates closure for badgeColor()', function () {
     $item = MobileBottomNavItem::make('Updates')
         ->badge(3)
-        ->badgeColor(fn() => 'warning');
+        ->badgeColor(fn () => 'warning');
 
     expect($item->getBadge())->toBe(3)
         ->and($item->getBadgeColor())->toBe('warning');
@@ -237,7 +239,7 @@ it('extractFromNavigation preserves natural group/item order instead of globally
         NavigationItem::make('Settings')->icon('heroicon-o-cog')->sort(2),
     ]);
 
-    $fakeManager = Mockery::mock(\Filament\FilamentManager::class);
+    $fakeManager = Mockery::mock(FilamentManager::class);
     $fakeManager->shouldReceive('getNavigation')->andReturn([$groupA, $groupB]);
     app()->instance('filament', $fakeManager);
 
@@ -262,10 +264,10 @@ it('extractFromNavigation preserves natural group/item order instead of globally
  */
 function fakeAuthedPanel(array $groups, bool $isAuthed = true): void
 {
-    $guard = Mockery::mock(\Illuminate\Contracts\Auth\Guard::class);
+    $guard = Mockery::mock(Guard::class);
     $guard->shouldReceive('check')->andReturn($isAuthed);
 
-    $manager = Mockery::mock(\Filament\FilamentManager::class);
+    $manager = Mockery::mock(FilamentManager::class);
     $manager->shouldReceive('auth')->andReturn($guard);
     $manager->shouldReceive('hasTenancy')->andReturn(false);
     $manager->shouldReceive('getNavigation')->andReturn($groups);
