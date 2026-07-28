@@ -2,6 +2,14 @@
 
 All notable changes to `mobile-bottom-nav` will be documented in this file.
 
+## Unreleased
+
+- Added: `->hideSidebarToggle()` — hides Filament's redundant topbar hamburger while the bottom
+  navigation bar is on screen, since the bar's own "More" button already opens the sidebar. Only
+  applied when the bar actually rendered and the "More" button is enabled, so the sidebar always
+  stays reachable. Opt out with `->hideSidebarToggle(false)` — needed if you run
+  `->moreButton(false)`.
+
 ## v1.3.1 - 2026-07-16
 
 **Full Changelog**: https://github.com/hammadzafar05/mobile-bottom-nav/compare/v1.3...v1.3.1

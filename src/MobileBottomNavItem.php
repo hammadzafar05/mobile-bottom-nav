@@ -149,6 +149,7 @@ class MobileBottomNavItem
         if ($this->badge instanceof Closure) {
             return ($this->badge)();
         }
+
         return $this->badge;
     }
 
