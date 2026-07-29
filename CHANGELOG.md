@@ -2,6 +2,15 @@
 
 All notable changes to `mobile-bottom-nav` will be documented in this file.
 
+## v1.4.1 - 2026-07-29
+
+### What's Changed
+
+* Docs/link mobile preset by @hammadzafar05 in https://github.com/hammadzafar05/mobile-bottom-nav/pull/9
+* fix: stop enforcing a Filament floor, recommend it instead by @hammadzafar05 in https://github.com/hammadzafar05/mobile-bottom-nav/pull/10
+
+**Full Changelog**: https://github.com/hammadzafar05/mobile-bottom-nav/compare/v1.4.0...v1.4.1
+
 ## Unreleased
 
 - Added: a note in the readme recommending Filament 4.11.5+ or 5.6.5+. Earlier releases in both
