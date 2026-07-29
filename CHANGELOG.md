@@ -4,11 +4,11 @@ All notable changes to `mobile-bottom-nav` will be documented in this file.
 
 ## Unreleased
 
-- Changed: requires Filament `^4.11.5 || ^5.6.5` instead of `^4.0 || ^5.0`. Filament 4.0.0-4.11.4
-  and 5.0.0-5.6.4 are covered by four published advisories, the most serious an unauthenticated
-  temporary file upload on auth pages (CVE-2026-48500). Composer already refuses to install those
-  versions, so the old range advertised support it could not deliver. No code change; this package
-  works on every version in both majors.
+- Added: a note in the readme recommending Filament 4.11.5+ or 5.6.5+. Earlier releases in both
+  majors carry four published advisories, the most serious an unauthenticated temporary file upload
+  on auth pages. The version constraint is deliberately left at `^4.0 || ^5.0`: this plugin is
+  compatible with all of them, and which patch level of the framework you run is your application's
+  call, not a bottom navigation bar's.
 - Added: a pointer to
   [`filament-mobile-preset`](https://github.com/hammadzafar05/filament-mobile-preset), which
   bundles this plugin with mobile-first defaults for the rest of the panel.
