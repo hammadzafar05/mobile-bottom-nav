@@ -24,6 +24,12 @@ composer require hammadzafar05/mobile-bottom-nav
 
 That's it. No custom theme or additional CSS configuration is required.
 
+> **Filament 4.11.5+ or 5.6.5+ is recommended.** Earlier releases in both majors carry four
+> published advisories, the most serious an unauthenticated temporary file upload on auth pages.
+> This plugin works with any 4.x or 5.x, so the constraint stays `^4.0 || ^5.0` — which framework
+> patch level you run is your application's decision. `composer audit` will tell you where you
+> stand.
+
 ## Usage
 
 Register the plugin in your panel provider:
