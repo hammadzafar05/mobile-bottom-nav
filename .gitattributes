@@ -1,7 +1,13 @@
 # Path-based git attributes
 # https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
 
+# Check everything out with LF, on every platform. Without this a Windows clone gets CRLF
+# working copies and Pint reports line_ending violations on files that are LF in the object
+# store and pass cleanly in CI: false failures only the Windows maintainer sees.
+* text=auto eol=lf
+
 # Ignore all test and documentation with "export-ignore".
+/rector.php             export-ignore
 /.github                export-ignore
 /.gitattributes         export-ignore
 /.gitignore             export-ignore
