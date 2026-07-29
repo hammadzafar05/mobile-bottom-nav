@@ -2,26 +2,30 @@
 
 All notable changes to `mobile-bottom-nav` will be documented in this file.
 
-## v1.4.0 - 2026-07-28
-
-### What's Changed
-
-* Bump actions/checkout from 7.0.0 to 7.0.1 by @dependabot[bot] in https://github.com/hammadzafar05/mobile-bottom-nav/pull/7
-* Feat/hide sidebar toggle by @hammadzafar05 in https://github.com/hammadzafar05/mobile-bottom-nav/pull/8
-
-### New Contributors
-
-* @hammadzafar05 made their first contribution in https://github.com/hammadzafar05/mobile-bottom-nav/pull/8
-
-**Full Changelog**: https://github.com/hammadzafar05/mobile-bottom-nav/compare/v1.3.1...v1.4.0
-
 ## Unreleased
 
-- Added: `->hideSidebarToggle()` — hides Filament's redundant topbar hamburger while the bottom
-  navigation bar is on screen, since the bar's own "More" button already opens the sidebar. Only
-  applied when the bar actually rendered and the "More" button is enabled, so the sidebar always
-  stays reachable. Opt out with `->hideSidebarToggle(false)` — needed if you run
+- Changed: requires Filament `^4.11.5 || ^5.6.5` instead of `^4.0 || ^5.0`. Filament 4.0.0-4.11.4
+  and 5.0.0-5.6.4 are covered by four published advisories, the most serious an unauthenticated
+  temporary file upload on auth pages (CVE-2026-48500). Composer already refuses to install those
+  versions, so the old range advertised support it could not deliver. No code change; this package
+  works on every version in both majors.
+- Added: a pointer to
+  [`filament-mobile-preset`](https://github.com/hammadzafar05/filament-mobile-preset), which
+  bundles this plugin with mobile-first defaults for the rest of the panel.
+- Fixed: `* text=auto eol=lf` in `.gitattributes`, so Windows clones stop reporting Pint
+  `line_ending` failures on files that are already clean in the repository.
+
+## v1.4.0 - 2026-07-28
+
+- Added: `->hideSidebarToggle()`, which hides Filament's redundant topbar hamburger while the
+  bottom navigation bar is on screen, since the bar's own "More" button already opens the sidebar.
+  Only applied when the bar actually rendered and the "More" button is enabled, so the sidebar
+  always stays reachable. Opt out with `->hideSidebarToggle(false)`, which is needed if you run
   `->moreButton(false)`.
+- Bumped `actions/checkout` from 7.0.0 to 7.0.1
+  ([#7](https://github.com/hammadzafar05/mobile-bottom-nav/pull/7)).
+
+**Full Changelog**: https://github.com/hammadzafar05/mobile-bottom-nav/compare/v1.3.1...v1.4.0
 
 ## v1.3.1 - 2026-07-16
 
