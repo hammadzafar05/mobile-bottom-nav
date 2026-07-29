@@ -75,6 +75,8 @@ MobileBottomNav::make()
     ->hideSidebarToggle(false)
 ```
 
+Hiding the hamburger is the one place this plugin reaches beyond the bar itself. If you want the rest of the panel to match (tables that stack instead of scrolling sideways, action buttons within thumb reach, modals that open as slide-overs), [`filament-mobile-preset`](https://github.com/hammadzafar05/filament-mobile-preset) bundles this plugin together with defaults for those.
+
 ### Custom Items
 
 Provide your own items instead of extracting from the navigation registry:
@@ -135,6 +137,12 @@ php artisan vendor:publish --tag="mobile-bottom-nav-views"
 ```bash
 composer test
 ```
+
+## Related
+
+This bar fixes navigation, and deliberately nothing else. On a phone your tables still scroll sideways, action buttons still sit at the far edge of the screen, and modals still open as centred dialogs.
+
+[`filament-mobile-preset`](https://github.com/hammadzafar05/filament-mobile-preset) bundles this plugin together with defaults for those, for panels that want the whole thing to feel mobile-first. Same author, same no-build-step approach.
 
 ## Changelog
 

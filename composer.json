@@ -40,6 +40,9 @@
         "ryangjchandler/blade-capture-directive": "^1.1",
         "spatie/laravel-ray": "^1.26"
     },
+    "suggest": {
+        "hammadzafar05/filament-mobile-preset": "Applies the rest of the mobile-first defaults this bar assumes: stacked tables, thumb-reachable actions, slide-over modals and larger touch targets."
+    },
     "autoload": {
         "psr-4": {
             "Hammadzafar05\\MobileBottomNav\\": "src/"
